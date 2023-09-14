@@ -55,6 +55,11 @@ html,body {
     color: var(--smokey_grey);
 }
 
+.input_text:hover {
+    cursor: pointer;
+    border: 1px solid var(--purple);
+}
+
 .icon_section {
     display: flex;
     width: 600px;
@@ -70,6 +75,11 @@ html,body {
     background: var(--purple);
     padding: 12px;
     border-radius: 50%;
+}
+
+.icon:hover {
+    background-color: var(--off_black);
+    cursor: pointer;
 }
 
 .result_item {
