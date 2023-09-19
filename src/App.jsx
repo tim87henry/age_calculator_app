@@ -9,26 +9,35 @@ function App() {
   const [year, setYear] = useState("YYYY");
   const [result, setResult] = useState({'years':'--', 'months':'--', 'days':'--'});
 
-  useEffect(() => {
-    // console.log("HERE "+year)
-    // if (day != "DD" && month != "MM" && year != "YYYY") {
-    //   setResult({'years':'__', 'months':'__', 'days':day})
-    // }
-  }, [day, month, year])
-
   const calculate_age = () => {
-    let date1 = new Date();
-    let date2 = new Date(year, month-1, day);
-    console.log("Current ::  "+date1);
-    console.log("Input :: "+date2)
-    let time_difference =  date1.getTime() - date2.getTime();
+    let date1 = new Date(); // Current date 
+    let date2 = new Date(year, month, day); // User's date of birth
+    let date3 = new Date(date1.getFullYear(), month, day); // User's current year birthday
+    let years = date1.getFullYear() - date2.getFullYear();
+    let months = 0;
+    let days = 0;
+
+    // Birthday not yet happened this year
+    if (date3 > date1) {
+      years--;
+      date3 = new Date(date1.getFullYear() - 1, month, day); // Last year's birthday
+      months = month - date1.getMonth();
+    } else {
+      months = date1.getMonth() - month;
+    }
+
+    let date4 = new Date(date1.getFullYear(), date1.getMonth(), day);
+    if (date4 > date1) {
+      date4 = new Date(date1.getFullYear(), date1.getMonth() - 1 , day);
+      months--;
+    }
+
+    let time_difference =  date1.getTime() - date4.getTime();
     const one_day = 24 * 60 * 60 * 1000;
     const num_days = Math.round(time_difference/one_day);
-    let result = new Date(num_days);
-    const years = Math.floor(num_days/365);
-    const months = ((date1.getMonth() - date2.getMonth() + (12 * (date1.getFullYear() - date2.getFullYear()))) % 12) - 1 ;
-    const days = num_days%(30)
-    setResult({'years': years, 'months': ('0' + months).slice(-2), 'days': ('0' + days).slice(-2)})
+    days = num_days - 1;
+    
+    setResult({'years': ('0' + years).slice(-2), 'months': ('0' + months).slice(-2), 'days': ('0' + days).slice(-2)})
   }
 
 

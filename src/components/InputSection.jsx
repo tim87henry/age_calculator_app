@@ -10,7 +10,7 @@ const InputSection = (props) => {
         </div>
         <div className="input_item">
             <label className='input_label'>MONTH</label>
-            <input name="month" className='input_text' defaultValue={props.month} onChange={e => props.setMonth(e.target.value)}></input>
+            <input name="month" className='input_text' defaultValue={props.month} onChange={e => props.setMonth(e.target.value-1)}></input>
         </div>
         <div className="input_item">
             <label className='input_label'>YEAR</label>
